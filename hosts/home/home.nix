@@ -12,6 +12,7 @@
       vlc
       ffmpeg
       rnix-lsp
+      # jetbrains.pycharm-community
       (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
     username = user;
