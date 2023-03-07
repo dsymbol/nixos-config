@@ -66,7 +66,6 @@
       package = pkgs.git;
       userName = "dsymbol";
       userEmail = "dsymbol@users.noreply.github.com";
-      attributes = [ "*.sh mode=executable" ];
       extraConfig = {
         push.autoSetupRemote = true;
         init.defaultBranch = "main";
