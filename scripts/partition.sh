@@ -28,7 +28,6 @@ fi
 
 if [ -d "/sys/firmware/efi" ]; then
     echo "UEFI detected."
-
     parted -s ${disk} -- mklabel gpt
     parted -s ${disk} -- mkpart ESP fat32 0% 500MiB
     parted -s ${disk} -- mkpart primary 500MiB 100%
