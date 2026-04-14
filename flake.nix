@@ -2,11 +2,11 @@
   description = "NixOS System Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    
+
     arkenfox-userjs = {
       url = "github:arkenfox/user.js";
       flake = false;
@@ -14,18 +14,56 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
     let
       username = "user";
+      
+      mkSystem = { host, system }: # function
+        let
+          inheritable = {
+            inherit inputs username host;
+          };
+        in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = inheritable;
+          modules = [
+            # allow extra packages
+            {
+              nixpkgs.config = {
+                allowUnfree = true;
+                allowBroken = true;
+                allowUnsupportedSystem = true;
+              };
+            }
 
-      mkSystem = import ./hosts {
-        inherit
-          nixpkgs
-          inputs
-          home-manager
-          username
-          ;
-      };
+            # nixos related configuration
+            ./hosts/configuration.nix
+            ./hosts/${host}/hardware.nix
+            ./hosts/${host}/configuration.nix
+
+            # home-manager related configuration
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = inheritable;
+                users.${username} = {
+                  imports = [
+                    ./hosts/home.nix
+                    ./hosts/${host}/home.nix
+                  ];
+                };
+              };
+            }
+          ];
+        };
     in
     {
       nixosConfigurations.desktop = mkSystem {
