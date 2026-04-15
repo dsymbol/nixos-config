@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    ruff
+    ty
+  ];
+
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -11,6 +16,14 @@
           jnoortheen.nix-ide
           ms-python.python
           charliermarsh.ruff
+        ]
+        ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+          {
+            name = "ty";
+            publisher = "astral-sh";
+            version = "2026.36.0";
+            sha256 = "sha256-wFyIxOQHzsNur9wgE4Td8xSxuWq5nWhOlsZ0jm1fkEo=";
+          }
         ];
       userSettings = {
         "files.autoSave" = "afterDelay";
