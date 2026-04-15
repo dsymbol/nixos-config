@@ -8,6 +8,7 @@
 {
   imports = [
     ./../../modules/home
+    ./../../modules/home/plasma.nix
   ];
 
   home.packages = with pkgs; [

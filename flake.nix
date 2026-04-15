@@ -7,6 +7,12 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     arkenfox-userjs = {
       url = "github:arkenfox/user.js";
       flake = false;
@@ -18,6 +24,7 @@
       self,
       nixpkgs,
       home-manager,
+      plasma-manager,
       ...
     }@inputs:
     let
@@ -53,6 +60,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
+                sharedModules = [ plasma-manager.homeModules.plasma-manager ];
                 extraSpecialArgs = inheritable;
                 users.${username} = {
                   imports = [
