@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ./../../modules/core/gpu.nix
-    ./../../modules/core/kde.nix
+    ../../modules/core/gpu.nix
+    ../../modules/core/kde.nix
   ];
 
   virtualisation.virtualbox.host.enable = true;

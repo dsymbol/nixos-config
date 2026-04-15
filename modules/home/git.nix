@@ -10,5 +10,6 @@
       push.autoSetupRemote = true;
       init.defaultBranch = "main";
     };
+    signing.format = null;
   };
 }
