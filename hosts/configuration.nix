@@ -69,6 +69,14 @@
     nixfmt
   ];
 
+  # nix-collect-garbage and optimise
+  nix.optimise.automatic = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
   virtualisation.docker.enable = true;
 
   # Enable sound with pipewire.
