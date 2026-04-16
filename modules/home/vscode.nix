@@ -1,11 +1,6 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    ruff
-    ty
-  ];
-
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -16,6 +11,7 @@
           jnoortheen.nix-ide
           ms-python.python
           charliermarsh.ruff
+          mkhl.direnv
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {

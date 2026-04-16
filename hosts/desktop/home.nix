@@ -15,5 +15,14 @@
     vlc
     telegram-desktop
     librewolf
+    aria2
+    kdePackages.krdc # rdp/vnc
+    uv
+    ffmpeg-full
   ];
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 }

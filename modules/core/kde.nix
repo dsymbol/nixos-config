@@ -12,7 +12,6 @@
     okular
     oxygen
     plasma-browser-integration
-    spectacle
     kinfocenter
   ];
 }

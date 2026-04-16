@@ -16,9 +16,10 @@
       # misc
       ls = "ls -lh --color=auto";
       grep = "grep -i --color=auto";
+      aria2c = "aria2c -x 16 -s 16";
       # python
       python = "python3";
-      venv = ''if [ -d "venv" ]; then source venv/bin/activate; else python -m venv venv; fi'';
+      venv = ''if [ -d ".venv" ]; then source .venv/bin/activate; else python -m venv .venv; fi'';
       # nix
       nswitch = "sudo nixos-rebuild switch --flake ~/nixos-config";
       ntest = "sudo nixos-rebuild test --flake ~/nixos-config";

@@ -58,7 +58,7 @@
     firefox
     vim
     nano
-    python3
+    (python3.withPackages (ps: with ps; [ tkinter ]))
     git
     wget
     curl
