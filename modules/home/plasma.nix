@@ -24,7 +24,7 @@
         location = "bottom";
         height = 44;
         floating = false;
-        widgets = [
+        widgets = [ # https://github.com/nix-community/plasma-manager/tree/trunk/modules/widgets
           {
             kickoff = {
               icon = "nix-snowflake";
@@ -39,6 +39,10 @@
                 "applications:org.kde.konsole.desktop"
                 "applications:codium.desktop"
               ];
+              behavior.grouping = {
+                method = "byProgramName";
+                clickAction = "showTooltips";
+              };
             };
           }
           "org.kde.plasma.marginsseparator"
