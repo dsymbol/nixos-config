@@ -79,11 +79,6 @@
         system = "x86_64-linux";
       };
 
-      nixosConfigurations.vmware = mkSystem {
-        host = "vmware";
-        system = "x86_64-linux";
-      };
-
       nixosConfigurations.virtualbox = mkSystem {
         host = "virtualbox";
         system = "x86_64-linux";
