@@ -17,8 +17,8 @@
           {
             name = "ty";
             publisher = "astral-sh";
-            version = "2026.36.0";
-            sha256 = "sha256-wFyIxOQHzsNur9wgE4Td8xSxuWq5nWhOlsZ0jm1fkEo=";
+            version = "2026.44.0";
+            sha256 = "sha256-0D/ZGHSDxtUfuQEL9C8ID/UZo7OPoT948tgKFBE3Hyw=";
           }
         ];
       userSettings = {

@@ -4,27 +4,43 @@
 }:
 
 # https://nix-community.github.io/plasma-manager/options.xhtml
-# to avoid logging out every time after applying run
-# rm -R ~/.local/share/plasma-manager/last_run_script_* && ~/.local/share/plasma-manager/run_all.sh
 
+let
+  wallpaper = pkgs.fetchurl {
+    url = "https://files.catbox.moe/b9x0en.png";
+    sha256 = "045b04p1lw0jbhr8vycvg672v3pv1k9fbz6vv5jd984zf5rgayyh";
+  };
+
+  # Avoid logging out every time after applying changes. ref: @NovaViper
+  reload-plasma = pkgs.writeShellScriptBin "reload-plasma" ''
+    rm -R ~/.local/share/plasma-manager/last_run_script_* && ~/.local/share/plasma-manager/run_all.sh
+  '';
+in
 {
+  home.packages = [
+    reload-plasma
+    pkgs.papirus-icon-theme
+  ];
+
   programs.plasma = {
     enable = true;
 
     workspace = {
       lookAndFeel = "org.kde.breezedark.desktop";
       clickItemTo = "select";
-      wallpaper = pkgs.nixos-artwork.wallpapers.simple-dark-gray.kdeFilePath;
+      wallpaper = "${wallpaper}";
+      iconTheme = "Papirus-Dark";
     };
 
-    kscreenlocker.appearance.wallpaper = pkgs.nixos-artwork.wallpapers.simple-dark-gray.kdeFilePath;
-    
+    kscreenlocker.appearance.wallpaper = "${wallpaper}";
+
     panels = [
       {
         location = "bottom";
         height = 44;
         floating = false;
-        widgets = [ # https://github.com/nix-community/plasma-manager/tree/trunk/modules/widgets
+        widgets = [
+          # https://github.com/nix-community/plasma-manager/tree/trunk/modules/widgets
           {
             kickoff = {
               icon = "nix-snowflake";
@@ -47,7 +63,18 @@
           }
           "org.kde.plasma.marginsseparator"
           "org.kde.plasma.pager"
-          "org.kde.plasma.systemtray"
+          {
+            systemTray.items = {
+              shown = [
+                "org.kde.plasma.networkmanagement"
+                "org.kde.plasma.volume"
+              ];
+              hidden = [
+                "org.kde.plasma.clipboard"
+                "org.kde.plasma.brightness"
+              ];
+            };
+          }
           {
             digitalClock = {
               time.format = "24h";
@@ -68,22 +95,11 @@
     ];
 
     shortcuts = {
-      mediacontrol.playpausemedia = [
-        "Media Play"
-        "F9"
-      ];
-      mediacontrol.previousmedia = [
-        "Media Previous"
-        "F10"
-      ];
-      mediacontrol.nextmedia = [
-        "Media Next"
-        "F11"
-      ];
-      kmix.mute = [
-        "Volume Mute"
-        "F12"
-      ];
+      "KDE Keyboard Layout Switcher"."Switch to Next Keyboard Layout" = "Alt+Shift";
+      "mediacontrol"."playpausemedia" = ["Media Play" "F9"];
+      "mediacontrol"."previousmedia" = ["Media Previous" "F10"];
+      "mediacontrol"."nextmedia" = ["Media Previous" "F11"];
+      "kmix"."mute" = ["Media Previous" "F12"];
     };
 
     kscreenlocker.autoLock = false;

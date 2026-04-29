@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../modules/core/gnome.nix
+    ../../modules/core/kde.nix
   ];
 
   networking.firewall.enable = false;

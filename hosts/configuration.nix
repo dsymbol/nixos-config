@@ -8,8 +8,6 @@
 
 {
   # User configuration
-  users.users.root.password = null;
-  
   users.users.${username} = {
     shell = pkgs.zsh;
     isNormalUser = true;
@@ -21,8 +19,8 @@
     ];
   };
 
-  programs.zsh.enable =  true;
-  
+  programs.zsh.enable = true;
+
   time.timeZone = "Asia/Jerusalem";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings.LC_TIME = "en_GB.UTF-8";
@@ -56,6 +54,8 @@
 
   # System wide packages
   environment.systemPackages = with pkgs; [
+    usbutils
+    lsof
     firefox
     vim
     nano

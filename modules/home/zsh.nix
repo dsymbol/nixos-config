@@ -17,13 +17,17 @@
       ls = "ls -lh --color=auto";
       grep = "grep -i --color=auto";
       aria2c = "aria2c -x 16 -s 16";
+      tldr = ''() { curl "cheat.sh/$1"; }'';
       # python
       python = "python3";
       venv = ''if [ -d ".venv" ]; then source .venv/bin/activate; else python -m venv .venv; fi'';
       # nix
       nswitch = "sudo nixos-rebuild switch --flake ~/nixos-config";
       ntest = "sudo nixos-rebuild test --flake ~/nixos-config";
-      nupdate = "nix flake update ~/nixos-config";
+      nupdate = "nix flake update --flake ~/nixos-config";
+      nclean = "sudo rm /nix/var/nix/gcroots/auto/*; sudo nix-collect-garbage -d";
+      nshell = ''() { nix shell "nixpkgs#$1"; }'';
+      nrun = ''() { nix run "nixpkgs#$1"; }'';
       # docker
       dshell = ''() { [ -z "$1" ] && set -- "debian:stable-slim"; docker run -d -t --rm $1; docker exec -it $(docker container ls -q -n 1) /bin/sh; }'';
       dcprune = "docker container prune -f;docker volume prune -f";

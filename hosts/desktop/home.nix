@@ -9,6 +9,7 @@
   imports = [
     ../../modules/home
     ../../modules/home/plasma.nix
+     ../../modules/home/gemini.nix
   ];
 
   home.packages = with pkgs; [
@@ -16,7 +17,6 @@
     telegram-desktop
     librewolf
     aria2
-    kdePackages.krdc # rdp/vnc
     uv
     ffmpeg-full
   ];
