@@ -8,8 +8,8 @@
 {
   imports = [
     ../../modules/home
-    ../../modules/home/plasma.nix
-     ../../modules/home/gemini.nix
+    ../../modules/home/kde.nix
+    ../../modules/home/gemini.nix
   ];
 
   home.packages = with pkgs; [
@@ -17,7 +17,6 @@
     telegram-desktop
     librewolf
     aria2
-    uv
     ffmpeg-full
   ];
 

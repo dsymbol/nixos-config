@@ -3,6 +3,6 @@
 {
   imports = [
     ../../modules/home
-    ../../modules/home/plasma.nix
+    ../../modules/home/kde.nix
   ];
 }

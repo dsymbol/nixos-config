@@ -7,6 +7,8 @@
     profiles.default = {
       id = 0;
       name = "Default";
+      search.default = "ddg";
+      search.privateDefault = "ddg";
       isDefault = true;
       extraConfig = lib.strings.concatStrings [
         (builtins.readFile "${inputs.arkenfox-userjs}/user.js")

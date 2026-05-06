@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    nixd
+    nixfmt
+  ];
+
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;

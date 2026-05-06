@@ -23,24 +23,17 @@
     {
       self,
       nixpkgs,
-      home-manager,
-      plasma-manager,
       ...
     }@inputs:
     let
       username = "user";
-      
-      mkSystem = { host, system }: # function
-        let
-          inheritable = {
-            inherit inputs username host;
-          };
-        in
+
+      mkSystem =
+        { host, system }: # function
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = inheritable;
+          specialArgs = { inherit inputs username host; };
           modules = [
-            # allow extra packages
             {
               nixpkgs.config = {
                 allowUnfree = true;
@@ -48,28 +41,7 @@
                 allowUnsupportedSystem = true;
               };
             }
-
-            # nixos related configuration
-            ./hosts/configuration.nix
-            ./hosts/${host}/hardware.nix
             ./hosts/${host}/configuration.nix
-
-            # home-manager related configuration
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                sharedModules = [ plasma-manager.homeModules.plasma-manager ];
-                extraSpecialArgs = inheritable;
-                users.${username} = {
-                  imports = [
-                    ./hosts/home.nix
-                    ./hosts/${host}/home.nix
-                  ];
-                };
-              };
-            }
           ];
         };
     in

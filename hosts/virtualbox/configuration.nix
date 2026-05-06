@@ -2,6 +2,8 @@
 
 {
   imports = [
+    ./hardware.nix
+    ../../modules/core
     ../../modules/core/kde.nix
   ];
 
@@ -11,4 +13,5 @@
   services.displayManager.autoLogin.user = username;
 
   virtualisation.virtualbox.guest.enable = true;
+  users.users.${username}.extraGroups = [ "vboxsf" ];
 }

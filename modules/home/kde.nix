@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   ...
 }:
@@ -17,6 +18,8 @@ let
   '';
 in
 {
+  imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
+
   home.packages = [
     reload-plasma
     pkgs.papirus-icon-theme

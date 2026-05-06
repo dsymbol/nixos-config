@@ -2,13 +2,14 @@
 
 {
   imports = [
-    ../../modules/core/gpu.nix
+    ./hardware.nix
+    ../../modules/core
     ../../modules/core/kde.nix
+    ../../modules/core/nvidia.nix
+    ../../modules/core/virtualbox.nix
   ];
 
-  virtualisation.virtualbox.host.enable = true;
-  # virtualisation.virtualbox.host.enableExtensionPack = true;
-  users.extraGroups.vboxusers.members = [ "${username}" ];
+  boot.loader.grub.useOSProber = true; # dual boot
 
   powerManagement = {
     cpuFreqGovernor = "performance";
