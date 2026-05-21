@@ -1,7 +1,5 @@
 {
   pkgs,
-  lib,
-  username,
   ...
 }:
 
@@ -15,6 +13,7 @@
   environment.systemPackages = with pkgs; [
     gnome-terminal
     nautilus
+    gnomeExtensions.appindicator # System Tray
   ];
 
   environment.gnome.excludePackages = with pkgs; [

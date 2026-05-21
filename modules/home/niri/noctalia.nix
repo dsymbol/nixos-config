@@ -118,7 +118,6 @@ in
         enableLockScreenCountdown = false;
         telemetryEnabled = false;
         enableBlurBehind = false;
-        animationDisabled = true;
       };
 
       idle = {

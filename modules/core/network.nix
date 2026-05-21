@@ -13,4 +13,8 @@
   };
 
   services.resolved.enable = true; # dns caching
+
+  # fix slow loading
+  networking.enableIPv6 = false;
+  boot.kernelParams = [ "ipv6.disable=1" ];
 }

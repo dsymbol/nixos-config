@@ -32,10 +32,6 @@
         dpi-aware = "yes";
         selection-target = "both";
       };
-      mouse-bindings = {
-        primary-paste = "BTN_RIGHT";
-        select-extend = "none";
-      };
     };
   };
 
