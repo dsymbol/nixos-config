@@ -1,14 +1,16 @@
-{ pkgs, username, ... }:
+{ pkgs, config, username, ... }:
 
 {
   imports = [
     ./hardware.nix
     ../../modules/core
     ../../modules/core/kde.nix
+    ../../modules/core/podman.nix
     ../../modules/core/nvidia.nix
     ../../modules/core/virtualbox.nix
   ];
 
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580; # 1060 otherwise won't work
   boot.loader.grub.useOSProber = true; # dual boot
 
   powerManagement = {
