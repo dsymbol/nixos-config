@@ -2,9 +2,11 @@
   description = "NixOS System Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05"; # https://status.nixos.org/
 
-    home-manager.url = "github:nix-community/home-manager/master";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     plasma-manager = {
@@ -23,23 +25,35 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       ...
     }@inputs:
     let
       username = "user";
 
       mkSystem =
-        { host, system }: # function
+        { host, system }:
+        let
+          pkgs-unstable = import nixpkgs-unstable {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+          };
+        in
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs username host; };
+          specialArgs = {
+            inherit
+              inputs
+              username
+              host
+              pkgs-unstable
+              ;
+          };
           modules = [
             {
-              nixpkgs.config = {
-                allowUnfree = true;
-                allowBroken = true;
-                allowUnsupportedSystem = true;
-              };
+              nixpkgs.config.allowUnfree = true;
             }
             ./hosts/${host}/configuration.nix
           ];

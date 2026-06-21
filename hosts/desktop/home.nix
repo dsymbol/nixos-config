@@ -9,7 +9,6 @@
   imports = [
     ../../modules/home
     ../../modules/home/kde
-    ../../modules/home/gemini.nix
   ];
 
   home.packages = with pkgs; [
@@ -18,10 +17,6 @@
     librewolf
     aria2
     ffmpeg-full
+    wl-clipboard
   ];
-
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-  };
 }

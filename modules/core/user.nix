@@ -3,6 +3,7 @@
   pkgs,
   username,
   host,
+  pkgs-unstable,
   ...
 }:
 
@@ -12,7 +13,7 @@
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
-    extraSpecialArgs = { inherit inputs username host; };
+    extraSpecialArgs = { inherit inputs username host pkgs-unstable; };
     users.${username} = {
       imports = [ ../../hosts/${host}/home.nix ];
       home = {

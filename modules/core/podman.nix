@@ -6,7 +6,6 @@
 }:
 
 {
-
   virtualisation = {
     containers = {
       enable = true;

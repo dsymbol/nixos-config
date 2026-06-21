@@ -5,7 +5,7 @@
     ./git.nix
     ./zsh.nix
     ./python.nix
-    ./vscode.nix
+    ./vscodium.nix
     ./firefox.nix
   ];
 }

@@ -6,9 +6,8 @@
     nixfmt
   ];
 
-  programs.vscode = {
+  programs.vscodium = {
     enable = true;
-    package = pkgs.vscodium;
     profiles.default = {
       extensions =
         with pkgs.vscode-extensions;
@@ -16,7 +15,7 @@
           jnoortheen.nix-ide
           ms-python.python
           charliermarsh.ruff
-          mkhl.direnv
+          arrterian.nix-env-selector
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
@@ -33,6 +32,7 @@
         "telemetry.telemetryLevel" = "off";
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "nixd";
+        "workbench.editor.enablePreview" = false;
 
         "[python]" = {
           "editor.defaultFormatter" = "charliermarsh.ruff";
