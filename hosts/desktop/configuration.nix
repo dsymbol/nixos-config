@@ -8,6 +8,7 @@
     ../../modules/core/podman.nix
     ../../modules/core/nvidia.nix
     ../../modules/core/virtualbox.nix
+    ../../modules/core/libreoffice.nix
   ];
 
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580; # 1060 otherwise won't work
@@ -21,4 +22,9 @@
       ${pkgs.findutils}/bin/xargs -I {} ${pkgs.bash}/bin/bash -c 'echo {} > /proc/acpi/wakeup'
     '';
   };
+
+  # fixes 3.5mm analog combo jack splitter (headphone + mic).
+  boot.extraModprobeConfig = ''
+    options snd-hda-intel model=dell-headset-multi
+  '';
 }
