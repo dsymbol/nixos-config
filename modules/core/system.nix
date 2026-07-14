@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 
@@ -10,7 +11,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 14d";
+      options = "--delete-older-than 30d";
     };
 
     settings.experimental-features = [
@@ -18,6 +19,8 @@
       "flakes"
     ];
   };
+
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
   # System wide packages
   environment.systemPackages = with pkgs; [

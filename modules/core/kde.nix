@@ -19,7 +19,7 @@
     krecorder
 
     # for `Text Extract` feature: requires compilation
-    # (spectacle.override { tesseractLanguages = [ "eng" "heb" ]; })
+    (spectacle.override { tesseractLanguages = [ "eng" ]; })
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [

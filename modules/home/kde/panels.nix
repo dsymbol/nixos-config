@@ -25,7 +25,7 @@
               "applications:librewolf.desktop"
             ];
             behavior.grouping = {
-              method = "byProgramName";
+              method = "none";
               clickAction = "showTooltips";
             };
           };

@@ -12,7 +12,11 @@
     useDHCP = lib.mkDefault true;
   };
 
-  services.resolved.enable = true; # dns caching
+  services.resolved = {
+    enable = true;
+    settings.Resolve.LLMNR = false;
+    settings.Resolve.MulticastDNS = false;
+  };
 
   # fix slow loading
   networking.enableIPv6 = false;
