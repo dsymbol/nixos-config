@@ -5,11 +5,10 @@ This repository contains my NixOS configurations.
 ## Installation
 
 ```bash
-sudo -i
 git clone https://github.com/dsymbol/nixos-config
 cd nixos-config
-bash ./scripts/partition.sh
-nixos-install --flake .#virtualbox
+sudo nix run --extra-experimental-features "nix-command flakes" .#nixosConfigurations.virtualbox.config.partition
+sudo nixos-install --flake .#virtualbox
 reboot
 ```
 
