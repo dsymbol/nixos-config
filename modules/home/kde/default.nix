@@ -34,6 +34,13 @@ in
       lookAndFeel = "org.kde.breezedark.desktop";
       clickItemTo = "select";
       iconTheme = "Papirus-Dark";
+      wallpaperPictureOfTheDay.provider = "bing";
+    };
+
+    kscreenlocker = {
+      autoLock = false;
+      timeout = 0;
+      appearance.wallpaperPictureOfTheDay.provider = "bing";
     };
 
     kwin = {
@@ -59,19 +66,28 @@ in
       ];
     };
 
-    kscreenlocker.autoLock = false;
-    kscreenlocker.timeout = 0;
-
     session.general.askForConfirmationOnLogout = false;
     session.sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
 
     configFile = {
       kdeglobals.KDE.DndBehavior = "MoveIfSameDevice";
       klipperrc.General.KeepClipboardContents = false;
+
       spectaclerc.General = {
         closeAfterOcr = true;
-        ocrLanguages = "eng,heb";
+        ocrLanguages = "eng";
       };
+      "dolphinrc" = {
+        General = {
+          AlwaysShowTabBar = true;
+          "ShowFullPath" = true;
+        };
+      };
+    };
+
+    dataFile = {
+      "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" = 1; # detailed view
+      "dolphin/view_properties/global/.directory"."Settings"."HiddenFilesShown" = true;
     };
   };
 }

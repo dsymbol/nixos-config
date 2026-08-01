@@ -9,8 +9,11 @@
 
   networking.firewall.enable = false;
   services.openssh.enable = true;
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = username;
+
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = username;
+  };
 
   virtualisation.virtualbox.guest.enable = true;
   users.users.${username}.extraGroups = [ "vboxsf" ];

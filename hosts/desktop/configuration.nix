@@ -14,6 +14,11 @@
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580; # 1060 otherwise won't work
   boot.loader.grub.useOSProber = true; # dual boot
 
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = username;
+  };
+  
   powerManagement = {
     cpuFreqGovernor = "performance";
     # suspend fix

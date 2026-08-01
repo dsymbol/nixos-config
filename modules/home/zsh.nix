@@ -10,9 +10,8 @@
     oh-my-zsh = {
       enable = true;
       theme = "gentoo";
-      plugins = [ "colored-man-pages" ];
+      plugins = [ "colored-man-pages" "safe-paste" ];
     };
-
     shellAliases = {
       ls = "ls -lh --color=auto";
       grep = "grep -i --color=auto";

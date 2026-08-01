@@ -1,14 +1,8 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ./greetd.nix
-  ];
-
-  security.pam.services.greetd.kwallet.enable = true;
-  
   services = {
-    displayManager.sddm.enable = false;
+    displayManager.sddm.enable = true;
     desktopManager.plasma6.enable = true;
   };
 
