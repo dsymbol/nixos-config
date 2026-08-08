@@ -1,10 +1,6 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ./greetd.nix
-  ];
-
   programs.niri.enable = true;
 
   services.power-profiles-daemon.enable = true;

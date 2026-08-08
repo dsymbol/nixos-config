@@ -5,6 +5,7 @@
     ./hardware.nix
     ../../modules/core
     ../../modules/core/kde.nix
+    ../../modules/core/sddm.nix
     ../../modules/core/podman.nix
     ../../modules/core/nvidia.nix
     ../../modules/core/virtualbox.nix

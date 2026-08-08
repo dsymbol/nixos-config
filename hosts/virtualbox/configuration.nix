@@ -5,6 +5,7 @@
     ./hardware.nix
     ../../modules/core
     ../../modules/core/kde.nix
+    ../../modules/core/sddm.nix
   ];
 
   networking.firewall.enable = false;

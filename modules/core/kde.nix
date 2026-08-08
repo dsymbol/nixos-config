@@ -1,10 +1,7 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  services = {
-    displayManager.sddm.enable = true;
-    desktopManager.plasma6.enable = true;
-  };
+  services.desktopManager.plasma6.enable = true;
 
   environment.systemPackages = with pkgs.kdePackages; [
     krdc
@@ -23,4 +20,7 @@
     plasma-browser-integration
     kinfocenter
   ];
+
+  # unlock kwallet
+  security.pam.services.greetd.kwallet.enable = config.services.greetd.enable;
 }
