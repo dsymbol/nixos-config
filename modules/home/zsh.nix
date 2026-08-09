@@ -55,6 +55,7 @@
     journalctl -u NetworkManager --since "today"
     systemctl --user list-unit-files
     journalctl --user --since "today"
+    sudo dd if=linux.iso of=/dev/sdX bs=4M status=progress conv=fsync
   '';
 
   programs.fzf = {

@@ -4,7 +4,7 @@
   ...
 }:
 
-# https://nix-community.github.io/plasma-manager/options.xhtml
+# https://nix-community.github.io/plasma-manager/options.html
 
 let
   # avoid logging out every time after applying changes. ref: @NovaViper

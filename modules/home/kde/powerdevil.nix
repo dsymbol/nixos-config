@@ -19,21 +19,19 @@ in
     AC = {
       powerProfile = "performance";
       powerButtonAction = "sleep";
+      whenSleepingEnter = "standby";
       autoSuspend = {
         idleTimeout = minutes 30;
         action = "sleep";
       };
       displayBrightness = 80;
-      dimDisplay = {
-        enable = true;
-        idleTimeout = minutes 30;
-      };
       turnOffDisplay.idleTimeout = minutes 10;
     };
 
     battery = {
       powerProfile = "balanced";
       powerButtonAction = "sleep";
+      whenSleepingEnter = "standbyThenHibernate";
       autoSuspend = {
         idleTimeout = minutes 5;
         action = "sleep";
@@ -49,6 +47,7 @@ in
     lowBattery = {
       powerProfile = "powerSaving";
       powerButtonAction = "sleep";
+      whenSleepingEnter = "standbyThenHibernate";
       autoSuspend = {
         idleTimeout = minutes 2;
         action = "sleep";

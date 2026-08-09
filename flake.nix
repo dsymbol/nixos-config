@@ -47,6 +47,7 @@
     in
     {
       nixosConfigurations.desktop = mkSystem "desktop" "x86_64-linux";
+      nixosConfigurations.thinkpad = mkSystem "thinkpad" "x86_64-linux";
       nixosConfigurations.virtualbox = mkSystem "virtualbox" "x86_64-linux";
     };
 }
