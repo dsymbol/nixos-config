@@ -3,6 +3,8 @@
 {
   programs.niri.enable = true;
 
+  security.polkit.enable = true;
+  services.gvfs.enable = true;
   services.power-profiles-daemon.enable = true;
 
   xdg.portal = {

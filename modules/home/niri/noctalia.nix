@@ -1,143 +1,72 @@
+{ ... }:
+
 {
-  pkgs,
-  lib,
-  username,
-  ...
-}:
+  xdg.configFile."noctalia/config.toml".text = ''
+    [bar.default]
+    center = [ "media", "clock" ]
+    end = [ "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "session" ]
+    margin_edge = 8
+    margin_ends = 8
+    position = "bottom"
+    scale = 1.10
+    start = [ "launcher", "workspaces" ]
 
-let
-  defaults = lib.importJSON "${pkgs.noctalia-shell}/share/noctalia-shell/Assets/settings-default.json";
-  widgetDefaults = lib.importJSON "${pkgs.noctalia-shell}/share/noctalia-shell/Assets/settings-widgets-default.json";
-  mkWidget = widget: lib.recursiveUpdate (widgetDefaults.bar.${widget.id} or { }) widget;
+    [desktop_widgets]
+    enabled = false
 
-  qmlMatch = builtins.match ".*readonly property int settingsVersion: +([0-9]+).*" (
-    builtins.readFile "${pkgs.noctalia-shell}/share/noctalia-shell/Commons/Settings.qml"
-  );
-  currentSettingsVersion = lib.strings.toInt (builtins.elemAt qmlMatch 0);
+    [notification]
+    history_retention_hours = 24
 
-  mPowerOpts = map (
-    item:
-    if
-      item.action == "hibernate" || item.action == "rebootToUefi" || item.action == "userspaceReboot"
-    then
-      item // { enabled = false; }
-    else
-      item
-  ) defaults.sessionMenu.powerOptions;
+    [shell]
+    clipboard_auto_paste = "off"
+    clipboard_confirm_clear_history = false
+    clipboard_history_max_entries = 20
+    font_family = "JetBrainsMono Nerd Font"
+    polkit_agent = true
+    settings_show_advanced = true
+    telemetry_enabled = false
 
-  mControlCards = map (
-    item:
-    if item.id == "brightness-card" then
-      item // { enabled = true; }
-    else if item.id == "weather-card" || item.id == "media-sysmon-card" then
-      item // { enabled = false; }
-    else
-      item
-  ) defaults.controlCenter.cards;
-in
-{
-  xdg.configFile."noctalia/settings.json".text = builtins.toJSON (
-    lib.recursiveUpdate defaults {
-      settingsVersion = currentSettingsVersion;
+    [shell.launcher]
+    categories = false
+    fetch_exchange_rates = false
 
-      colorSchemes.predefinedScheme = "Tokyo Night";
-      dock.enabled = false;
-      notifications.density = "compact";
-      controlCenter.cards = mControlCards;
-      location.weatherEnabled = false;
+    [shell.panel]
+    open_near_click_control_center = true
+    open_near_click_session = true
 
-      appLauncher = {
-        showCategories = false;
-        enableSettingsSearch = false;
-      };
+    [shell.screenshot]
+    save_to_file = false
 
-      wallpaper = {
-        directory = "/home/${username}/Pictures/Wallpapers";
-        skipStartupTransition = true;
-      };
+    [shell.session]
+    grid_columns = 1
+    show_shortcuts = false
 
-      bar = {
-        barType = "floating";
-        density = "comfortable";
-        marginHorizontal = 8;
-        marginVertical = 8;
-        position = "bottom";
-        showCapsule = false;
-      };
+    [theme]
+    builtin = "Tokyo-Night"
+    mode = "dark"
+    source = "builtin"
 
-      bar.widgets = {
-        left = map mkWidget [
-          {
-            id = "Launcher";
-            useDistroLogo = true;
-          }
-          {
-            id = "ActiveWindow";
-            maxWidth = 250;
-          }
-        ];
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "qt" ]
+    enable_community_templates = false
 
-        center = map mkWidget [
-          { id = "Workspace"; }
-          {
-            id = "MediaMini";
-            compactMode = true;
-            showAlbumArt = false;
-            showProgressRing = false;
-          }
-        ];
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = true
+    timeout = 900.0
 
-        right = map mkWidget [
-          {
-            id = "Tray";
-            pinned = [
-              "Telegram Desktop"
-            ];
-          }
-          { id = "NotificationHistory"; }
-          {
-            id = "Battery";
-            showPowerProfiles = true;
-          }
-          { id = "Volume"; }
-          { id = "Network"; }
-          { id = "KeyboardLayout"; }
-          { id = "ControlCenter"; }
-          {
-            id = "Clock";
-            formatHorizontal = "HH:mm";
-          }
-          { id = "SessionMenu"; }
-        ];
-      };
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 600.0
+    
+    [widget.media]
+    hide_when_no_media = true
 
-      general = {
-        clockFormat = "HH\nmm";
-        clockStyle = "digital";
-        compactLockScreen = true;
-        enableLockScreenCountdown = false;
-        telemetryEnabled = false;
-        enableBlurBehind = false;
-      };
+    [widget.network]
+    show_label = false
 
-      idle = {
-        enabled = true;
-        lockTimeout = 1750;
-      };
-
-      sessionMenu = {
-        enableCountdown = false;
-        largeButtonsStyle = false;
-        position = "bottom_right";
-        showHeader = false;
-        showKeybinds = false;
-        powerOptions = mPowerOpts;
-      };
-
-      ui = {
-        fontDefault = "JetBrainsMono Nerd Font";
-        fontFixed = "JetBrainsMono Nerd Font Mono";
-      };
-    }
-  );
+    [widget.volume]
+    show_label = false
+  '';
 }

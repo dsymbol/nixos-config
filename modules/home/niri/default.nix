@@ -1,26 +1,36 @@
-{ pkgs, host, ... }:
+{
+  pkgs,
+  pkgs-unstable,
+  host,
+  config,
+  ...
+}:
 
 {
   imports = [
     ./noctalia.nix
   ];
 
-  home.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    xwayland-satellite
-    nautilus # gnome files
-    noctalia-shell
-    qimgv # image viewer
-    playerctl # media control
-    mousepad # notepad
-  ];
+  home.packages =
+    (with pkgs; [
+      nerd-fonts.jetbrains-mono
+      xwayland-satellite
+      nautilus # gnome files
+      file-roller
+      qimgv # image viewer
+      playerctl # media control
+    ])
+    ++ (with pkgs-unstable; [
+      noctalia
+    ]);
 
-  home.pointerCursor = {
-    gtk.enable = true;
-    x11.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Ice";
-    size = 24;
+  dconf.settings = {
+    "org/gnome/nautilus/preferences" = {
+      default-folder-viewer = "list-view";
+    };
+    "org/gtk/gtk4/settings/file-chooser" = {
+      show-hidden = true;
+    };
   };
 
   programs.foot = {
@@ -35,13 +45,42 @@
     };
   };
 
+  gtk = {
+    enable = true;
+
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+
+    colorScheme = "dark";
+
+    gtk4.theme = config.gtk.theme;
+  };
+
+  home.pointerCursor = {
+    name = "Adwaita";
+    package = pkgs.adwaita-icon-theme;
+    size = 24;
+    x11 = {
+      enable = true;
+      defaultCursor = "Adwaita";
+    };
+  };
+
   xdg.configFile."niri/config.kdl".text = ''
     prefer-no-csd
-    spawn-at-startup "noctalia-shell"
+    spawn-at-startup "noctalia"
     screenshot-path null
-    
+
     environment {
         QT_QPA_PLATFORM "wayland"
+        QT_QPA_PLATFORMTHEME "gtk3"
         ELECTRON_OZONE_PLATFORM_HINT "auto"
         MOZ_ENABLE_WAYLAND "1"
 
@@ -93,8 +132,14 @@
     }
 
     window-rule {
-        match app-id=r#"firefox|codium"# 
+        match app-id=r#"firefox|librewolf|codium|libreoffice|VirtualBoxVM"# 
         default-column-width { proportion 1.0; }
+        open-maximized false
+    }
+
+    window-rule {
+        match app-id=r#"telegram"# 
+        default-column-width { proportion 0.65; }
         open-maximized false
     }
 
@@ -106,7 +151,8 @@
     binds {
         Mod+F1 { show-hotkey-overlay; }
         Mod+T { spawn "foot"; }
-        Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+        Mod+D { spawn-sh "noctalia msg panel-toggle launcher"; }
+        Mod+V { spawn-sh "noctalia msg panel-toggle clipboard"; }
         Mod+Q repeat=false { close-window; }
         Mod+E { quit; }
 
@@ -125,17 +171,10 @@
         Mod+W { switch-preset-column-width; }
         Mod+M { maximize-column; }
 
-        ${
-          if host == "desktop" then
-            ''
-              Mod+F12 { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-              Mod+F9  { spawn "playerctl" "-a" "play-pause"; }
-              Mod+F11 { spawn "playerctl" "-a" "next"; }
-              Mod+F10 { spawn "playerctl" "-a" "previous"; }
-            ''
-          else
-            ""
-        }
+        F9  { spawn "playerctl" "-a" "play-pause"; }
+        F11 { spawn "playerctl" "-a" "next"; }
+        F10 { spawn "playerctl" "-a" "previous"; }
+        F12 { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     }
 
     layout {
@@ -175,14 +214,9 @@
     }
 
     window-rule {
-    geometry-corner-radius 10
-    clip-to-geometry true
-    draw-border-with-background false
-    }
-
-    cursor {
-        xcursor-theme "Bibata-Modern-Ice"
-        xcursor-size 24
+        geometry-corner-radius 10
+        clip-to-geometry true
+        draw-border-with-background false
     }
 
     hotkey-overlay {
