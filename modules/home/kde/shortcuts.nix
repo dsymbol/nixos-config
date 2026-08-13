@@ -3,7 +3,7 @@
 }:
 
 {
-  programs.plasma.shortcuts = {
+  programs.plasma.shortcuts = { # nix run github:nix-community/plasma-manager
     "KDE Keyboard Layout Switcher"."Switch to Next Keyboard Layout" = "Alt+Shift";
     "mediacontrol"."playpausemedia" = [ "Media Play" "F9" ];
     "mediacontrol"."previousmedia" = [ "Media Previous" "F10" ];

@@ -44,6 +44,14 @@ in
     };
 
     kwin = {
+      effects = {
+        blur = {
+          enable = true;
+          noiseStrength = 0;
+          strength = 3;
+        };
+      };
+      
       titlebarButtons = {
         left = [ "more-window-actions" ];
         right = [
@@ -79,14 +87,12 @@ in
       };
       "dolphinrc" = {
         General = {
-          AlwaysShowTabBar = true;
           "ShowFullPath" = true;
         };
       };
     };
 
     dataFile = {
-      "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" = 1; # detailed view
       "dolphin/view_properties/global/.directory"."Settings"."HiddenFilesShown" = true;
     };
   };
