@@ -132,14 +132,8 @@
     }
 
     window-rule {
-        match app-id=r#"firefox|librewolf|codium|libreoffice|VirtualBoxVM"# 
+        match app-id=r#"brave|librewolf|codium|libreoffice|VirtualBoxVM"# 
         default-column-width { proportion 1.0; }
-        open-maximized false
-    }
-
-    window-rule {
-        match app-id=r#"telegram"# 
-        default-column-width { proportion 0.65; }
         open-maximized false
     }
 

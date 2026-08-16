@@ -6,6 +6,5 @@
     ./zsh.nix
     ./python.nix
     ./vscodium.nix
-    ./firefox.nix
   ];
 }

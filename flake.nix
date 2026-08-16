@@ -16,11 +16,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-
-    arkenfox-userjs = {
-      url = "github:arkenfox/user.js";
-      flake = false;
-    };
   };
 
   outputs = { nixpkgs, nixpkgs-unstable, ... }@inputs:

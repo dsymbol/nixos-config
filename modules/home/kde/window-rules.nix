@@ -68,7 +68,7 @@ in
     {
       description = "Start maximized";
       match =
-        (matchClass "firefox|codium|librewolf") // (matchTitle "(Mozilla Firefox|LibreWolf|Codium)$");
+        (matchClass "brave|codium|librewolf") // (matchTitle "(Brave Origin|LibreWolf|Codium)$");
       apply = maximize true;
     }
   ];
