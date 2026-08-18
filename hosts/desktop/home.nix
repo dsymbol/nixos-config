@@ -18,5 +18,6 @@
     aria2
     ffmpeg-full
     wl-clipboard
+    additions.ytdl
   ];
 }

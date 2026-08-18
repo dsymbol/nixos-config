@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgs-unstable,
   host,
   config,
   ...
@@ -11,18 +10,15 @@
     ./noctalia.nix
   ];
 
-  home.packages =
-    (with pkgs; [
-      nerd-fonts.jetbrains-mono
-      xwayland-satellite
-      nautilus # gnome files
-      file-roller
-      qimgv # image viewer
-      playerctl # media control
-    ])
-    ++ (with pkgs-unstable; [
-      noctalia
-    ]);
+  home.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    xwayland-satellite
+    nautilus # gnome files
+    file-roller
+    qimgv # image viewer
+    playerctl # media control
+    unstable.noctalia
+  ];
 
   dconf.settings = {
     "org/gnome/nautilus/preferences" = {

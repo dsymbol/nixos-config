@@ -2,7 +2,7 @@
   description = "NixOS System Configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05"; # https://status.nixos.org/
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -18,7 +18,7 @@
     };
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, ... }@inputs:
+  outputs = { nixpkgs, ... }@inputs:
     let
       username = "user";
 
@@ -26,17 +26,10 @@
         nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
-            {
-              nixpkgs.config.allowUnfree = true;
-            }
             ./hosts/${host}/configuration.nix
           ];
           specialArgs = {
             inherit inputs username host;
-            pkgs-unstable = import nixpkgs-unstable {
-              inherit system;
-              config.allowUnfree = true;
-            };
           };
         };
     in

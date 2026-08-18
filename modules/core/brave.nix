@@ -1,8 +1,8 @@
-{ pkgs-unstable, ... }:
+{ pkgs, ... }:
 
 {
   environment.systemPackages = [
-    pkgs-unstable.brave-origin
+    pkgs.unstable.brave-origin
   ];
 
   environment.etc."brave/policies/recommended/optional.json".text = builtins.toJSON {
