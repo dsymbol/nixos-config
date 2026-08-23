@@ -9,6 +9,7 @@
   imports = [
     ../../modules/home
     ../../modules/home/kde
+    ../../modules/home/opencode.nix
   ];
 
   home.packages = with pkgs; [

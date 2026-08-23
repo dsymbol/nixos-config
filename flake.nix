@@ -16,6 +16,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    jail-nix.url = "sourcehut:~alexdavid/jail.nix";
   };
 
   outputs = { nixpkgs, ... }@inputs:
