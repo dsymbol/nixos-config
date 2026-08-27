@@ -34,13 +34,11 @@ in
       lookAndFeel = "org.kde.breezedark.desktop";
       clickItemTo = "select";
       iconTheme = "Papirus-Dark";
-      wallpaperPictureOfTheDay.provider = "bing";
     };
 
     kscreenlocker = {
       autoLock = false;
       timeout = 0;
-      appearance.wallpaperPictureOfTheDay.provider = "bing";
     };
 
     kwin = {

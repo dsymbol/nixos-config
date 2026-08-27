@@ -20,5 +20,6 @@
     ffmpeg-full
     wl-clipboard
     additions.ytdl
+    additions.wallhaven-plasma-potd
   ];
 }
