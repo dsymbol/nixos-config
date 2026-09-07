@@ -8,6 +8,7 @@
     ../../modules/core/sddm.nix
     ../../modules/core/podman.nix
     ../../modules/core/nvidia.nix
+    ../../modules/core/dnscrypt.nix
     ../../modules/core/virtualbox.nix
     ../../modules/core/libreoffice.nix
   ];
