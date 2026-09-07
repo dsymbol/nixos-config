@@ -13,24 +13,29 @@
   nix = {
     optimise.automatic = true;
 
+    registry.nixpkgs.flake = inputs.nixpkgs;
+
     gc = {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 30d";
     };
 
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+
+      # use local registry
+      use-registries = true;
+      flake-registry = "";
+    };
   };
 
-  nix.registry.nixpkgs.flake = inputs.nixpkgs;
-
-  # System wide packages
   environment.systemPackages = with pkgs; [
-    usbutils
     lsof
+    usbutils
+    pciutils
+    bind
+
     vim
     nano
     git
@@ -43,6 +48,6 @@
   time.timeZone = "Asia/Jerusalem";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings.LC_TIME = "en_GB.UTF-8";
-  
+
   system.stateVersion = "22.11";
 }
